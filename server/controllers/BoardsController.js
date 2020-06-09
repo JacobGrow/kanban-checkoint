@@ -39,8 +39,10 @@ export class BoardsController extends BaseController {
 
   async getListsByBoardId(req, res, next) {
     try {
-      let data = await listService.find({boardId: req.params.id})
-      return res.send.data
+
+      let data = await listService.find({ boardId: req.params.id })
+      return data
+
     } catch (error) {
       next(error)
     }
