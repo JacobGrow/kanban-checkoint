@@ -1,13 +1,19 @@
 <template>
   <div class="board">
-    <h1 v-if="board.title">{{board.title}}</h1>
-    <h1 v-else>Loading...</h1>
+    <h1>{{ board.title }}</h1>
+    <h5>{{ board.description }}</h5>
   </div>
+
+  
 </template>
 
 <script>
+  import Lists from "@/components/ListComponent.vue"
 export default {
   name: "board",
+  mounted() { 
+    this.$store.dispatch("getBoardDetails", this.$route.params.boardId);
+  },
   computed: {
     board() {
       //FIXME This does not work on page reload because the activeBoard is empty in the store
