@@ -4,28 +4,28 @@ import { BadRequest } from "../utils/Errors"
 
 class ListService {
 
-async getAll(userEmail) {
+  async getAll(userEmail) {
     return await dbContext.Lists.find({ creatorEmail: userEmail }).populate("creator", "name picture")
   }
 
-async getById(id, userEmail) {
+  async getById(id, userEmail) {
     let data = await dbContext.Lists.findOne({ _id: id, creatorEmail: userEmail })
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this board")
     }
     return data
   }
-async find(query = {}){
-  return await dbContext.Lists.find(query).populate('boardId')
-}
-
-async findById(id){
-  let data = await (await dbContext.Lists.findById(id)).populate('boardId')
-  if (!data) {
-    throw new BadRequest("Invalid Id")
+  async find(query = {}) {
+    return await dbContext.Lists.find(query).populate('boardId')
   }
-  return data
-}
+
+  async findById(id) {
+    let data = await (await dbContext.Lists.findById(id)).populate('boardId')
+    if (!data) {
+      throw new BadRequest("Invalid Id")
+    }
+    return data
+  }
 
 
   async create(rawData) {

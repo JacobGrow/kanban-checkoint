@@ -3,6 +3,7 @@ import BaseController from "../utils/BaseController";
 import auth0provider from "@bcwdev/auth0provider";
 import { boardService } from '../services/BoardService'
 import { listService } from '../services/ListService'
+import { itemService } from '../services/ItemService';
 
 
 
@@ -14,6 +15,7 @@ export class ListsController extends BaseController {
       .use(auth0provider.getAuthorizedUserInfo)
       .get('', this.getAll)
       .get('/:id', this.getById)
+      .get('/:id/items', this.getItemsByListId)
       .post('/:id', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.delete)
@@ -36,6 +38,14 @@ export class ListsController extends BaseController {
     } catch (error) { next(error) }
   }
 
+  async getItemsByListId(req, res, next) {
+    try {
+      let data = await itemService.find({ listId: req.params.id })
+      return res.send(data)
+    } catch (error) {
+      next(error)
+    }
+  }
 
   async create(req, res, next) {
     try {

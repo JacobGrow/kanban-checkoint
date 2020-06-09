@@ -2,6 +2,7 @@ import { dbContext } from "../db/DbContext"
 import { BadRequest } from "../utils/Errors"
 
 
+
 class BoardService {
   async getAll(userEmail) {
     return await dbContext.Boards.find({ creatorEmail: userEmail }).populate("creator", "name picture")
@@ -11,6 +12,14 @@ class BoardService {
     let data = await dbContext.Boards.findOne({ _id: id, creatorEmail: userEmail })
     if (!data) {
       throw new BadRequest("Invalid ID or you do not own this board")
+    }
+    return data
+  }
+
+  async findById(id) {
+    let data = await (await dbContext.Boards.findById(id)).populate('lists')
+    if (!data) {
+      throw new BadRequest("Invalid Id")
     }
     return data
   }
