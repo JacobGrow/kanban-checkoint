@@ -14,7 +14,7 @@ export class ItemsController extends BaseController {
             .use(auth0provider.getAuthorizedUserInfo)
             .get('', this.getAll)
             .get('/:id', this.getById)
-            .post('', this.create)
+            .post('/:id', this.create)
             .put('/:id', this.edit)
             .delete('/:id', this.delete)
 
