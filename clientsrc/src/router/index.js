@@ -6,6 +6,8 @@ import Home from '../pages/Home.vue'
 import Boards from '../pages/Boards.vue'
 // @ts-ignore
 import Board from '../pages/Board.vue'
+// @ts-ignore
+import Lists from '../components/ListComponent.vue'
 import { authGuard } from "@bcwdev/auth0-vue"
 
 Vue.use(Router)
@@ -29,6 +31,12 @@ export default new Router({
       component: Board,
       beforeEnter: authGuard
     },
+    // {
+    //   path: '/boards/:boardId/lists',
+    //   name: 'lists',
+    //   component: Lists,
+    //   beforeEnter: authGuard
+    // },
     {
       path: "*",
       redirect: '/'

@@ -1,24 +1,28 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'
+import api from "./AxiosService"
 import router from '../router/index'
+import { BoardsStore } from './BoardsStore'
+import { ListsStore } from './ListsStore'
 
 Vue.use(Vuex)
 
 //Allows axios to work locally or live
-let base = window.location.host.includes('localhost') ? '//localhost:3000/' : '/'
+// let base = window.location.host.includes('localhost') ? '//localhost:3000/' : '/'
 
-let api = Axios.create({
-  baseURL: base + "api/",
-  timeout: 3000,
-  withCredentials: true
-})
+// let api = Axios.create({
+//   baseURL: base + "api/",
+//   timeout: 3000,
+//   withCredentials: true
+// })
 
 export default new Vuex.Store({
   state: {
     user: {},
     boards: [],
-    activeBoard: {}
+    activeBoard: {},
+    lists: []
   },
   mutations: {
     setUser(state, user) {
@@ -29,8 +33,12 @@ export default new Vuex.Store({
     },
     setActiveBoard(state, board) {
       state.activeBoard = board
-    }
+    },
+    setLists(state, list) {
+      state.lists = list
+    },
   },
+
   actions: {
     //#region -- AUTH STUFF --
     setBearer({ }, bearer) {
@@ -47,39 +55,10 @@ export default new Vuex.Store({
         console.error(err)
       }
     },
-    //#endregion
 
-
-    //#region -- BOARDS --
-    getBoards({ commit, dispatch }) {
-      api.get('boards')
-        .then(res => {
-          commit('setBoards', res.data)
-        })
-    },
-    addBoard({ commit, dispatch }, boardData) {
-      api.post('boards', boardData)
-        .then(serverBoard => {
-          dispatch('getBoards')
-        })
-    },
-
-    async getBoardDetails({ commit, dispatch }, id) {
-      try {
-        let res = await api.get("boards/" + id);
-        commit("setActiveBoard", res.data)
-      } catch (error) {
-        console.error(error)
-      }
-    }
-
-    //#endregion
-
-
-    //#region -- LISTS --
-
-
-
-    //#endregion
+  },
+  modules: {
+    BoardsStore,
+    ListsStore
   }
 })
