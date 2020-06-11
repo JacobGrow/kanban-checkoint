@@ -7,26 +7,52 @@
             {{list.title}}
           </ul>
           <div class="card-body">
-            <items />
-          </div>
+            <item v-for="item in items" :key="item.id" :item="item"/>
+            <form @submit.prevent="addItem">
+              <input type="text" placeholder="List Item..." v-model="newItem.title">
+              <button type="submit">Submit</button>
+            </form>
         </div>
       </div>
     </div>
+  </div>
   </div>
 
 </template>
 
 
 <script>
-  import items from "@/components/ItemsComponent.vue"
+  import item from "@/components/ItemsComponent.vue"
   export default {
     name: "List",
     props: ["list"],
     mounted() {
       // this.$store.dispatch("getLists", this.$route.params.boardId)
+        this.$store.dispatch("getItems", this.list.id)
+    },
+    data() {
+    return {
+      newItem: {
+      listId: this.list.id
+    }
+
+    }
+    },
+    methods: {
+    addItem() {
+    this.$store.dispatch("addItem", this.newItem)
+      this.newItem = {
+      listId: this.list.id
+      }
+    },
+  },
+    computed: {
+    items() {
+    return this.$store.state.items[this.list.id]
+            }
     },
     components: {
-      items
+      item
     }
   }
 

@@ -6,13 +6,13 @@ export const ItemsStore = {
 
     actions: {
 
-        getItems({ commit, dispatch }, id) {
-            api.get("lists/" + id + "/items")
+        getItems({ commit, dispatch }, listId) {
+            api.get("lists/" + listId + "/items")
                 .then(res => {
-                    commit('setItems', res.data)
+                    commit('setItems', {listId, items: res.data})
                 })
         },
-        async addItems({ commit, dispatch }, newItem) {
+        async addItem({ commit, dispatch }, newItem) {
             try {
                 let res = await api.post('items/' + newItem.listId, newItem)
                 dispatch("getItems", newItem.listId)
