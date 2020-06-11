@@ -1,18 +1,24 @@
 <template>
-  <div class="board">
-    <h1>{{ board.title }}</h1>
-    <h5>{{ board.description }}</h5>
-    <div class="lists-component">
-      <div>
-        <form @submit.prevent="addList">
-          <input type="text" placeholder="title" v-model="newList.title" required />
-          <button type="submit">Create List</button>
-        </form>
+  <div class="row">
+    <div class="col">
+
+      <div class="board">
+        <h1>{{ board.title }}</h1>
+        <h5>{{ board.description }}</h5>
+        <div class="lists-component">
+          <div>
+            <form @submit.prevent="addList">
+              <input type="text" placeholder="title" v-model="newList.title" required />
+              <button type="submit">Create List</button>
+            </form>
+          </div>
+          <div class="row">
+            <list v-for="list in lists" :key="list.id" :list="list" />
+          </div>
+        </div>
       </div>
-      <list v-for="list in lists" :key="list.id" :list="list" />
     </div>
   </div>
-
 
 </template>
 

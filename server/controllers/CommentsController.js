@@ -7,25 +7,23 @@ import { itemService } from '../services/ItemService';
 import { commentService } from '../services/CommentService';
 
 
+
 //PUBLIC
-export class ItemsController extends BaseController {
+export class CommentsController extends BaseController {
     constructor() {
-        super("api/items")
+        super("api/comments")
         this.router
             .use(auth0provider.getAuthorizedUserInfo)
             .get('', this.getAll)
             .get('/:id', this.getById)
-            .get('/:id/comments', this.getCommentsByItemId)
-            .post('/:id', this.create)
-            .put('/:id', this.edit)
+            .post('', this.create)
             .delete('/:id', this.delete)
 
     }
 
-
     async getAll(req, res, next) {
         try {
-            let data = await itemService.getAll(req.userInfo.email)
+            let data = await commentService.getAll(req.userInfo.email)
             return res.send(data)
         }
         catch (err) { next(err) }
@@ -33,36 +31,22 @@ export class ItemsController extends BaseController {
 
     async getById(req, res, next) {
         try {
-            let data = await itemService.getById(req.params.id, req.userInfo.email)
+            let data = await commentService.getById(req.params.id, req.userInfo.email)
             return res.send(data)
         } catch (error) { next(error) }
     }
-    async getCommentsByItemId(req, res, next) {
-        try {
-            let data = await commentService.find({ itemId: req.params.id })
-            return res.send(data)
-        } catch (error) {
-            next(error)
-        }
 
-    }
 
     async create(req, res, next) {
         try {
             req.body.creatorEmail = req.userInfo.email
-            let data = await itemService.create(req.body)
+            let data = await commentService.create(req.body)
             return res.status(201).send(data)
-        } catch (error) { next(error) }
-    }
-    async edit(req, res, next) {
-        try {
-            let data = await itemService.edit(req.params.id, req.userInfo.email, req.body)
-            return res.send(data)
         } catch (error) { next(error) }
     }
     async delete(req, res, next) {
         try {
-            await itemService.delete(req.params.id, req.userInfo.email)
+            await commentService.delete(req.params.id, req.userInfo.email)
             return res.send("Successfully deleted")
         } catch (error) { next(error) }
     }

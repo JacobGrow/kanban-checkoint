@@ -28,9 +28,9 @@ export const BoardsStore = {
             }
         },
 
-        async removeBoard({ commit, dispatch }, _id) {
+        async removeBoard({ commit, dispatch }, id) {
             try {
-                let res = await api.delete("boards/" + _id);
+                let res = await api.delete("boards/" + id);
                 dispatch("getAllBoards");
             } catch (error) {
                 console.error(error)

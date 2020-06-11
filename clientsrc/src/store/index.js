@@ -6,6 +6,7 @@ import router from '../router/index'
 import { BoardsStore } from './BoardsStore'
 import { ListsStore } from './ListsStore'
 import { ItemsStore } from './ItemsStore'
+import { CommentsStore } from './CommentsStore'
 
 
 Vue.use(Vuex)
@@ -25,7 +26,8 @@ export default new Vuex.Store({
     boards: [],
     activeBoard: {},
     lists: [],
-    items: {}
+    items: {},
+    comments: {}
   },
   mutations: {
     setUser(state, user) {
@@ -44,6 +46,9 @@ export default new Vuex.Store({
       // state.items[data.listId] = data.items
       Vue.set(state.items, data.listId, data.items)
     },
+    setComments(state, data) {
+      Vue.set(state.comments, data.itemId, data.items)
+    }
 
   },
 
@@ -68,6 +73,7 @@ export default new Vuex.Store({
   modules: {
     BoardsStore,
     ListsStore,
-    ItemsStore
+    ItemsStore,
+    CommentsStore,
   }
 })

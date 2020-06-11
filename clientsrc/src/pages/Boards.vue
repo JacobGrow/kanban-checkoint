@@ -6,36 +6,42 @@
       <input type="text" placeholder="description" v-model="newBoard.description" />
       <button type="submit">Create Board</button>
     </form>
-    <div v-for="board in boards" :key="board.id">
+    <div v-for="board in boards" :key="board.id" :board="board">
       <router-link :to="{name: 'board', params: {boardId: board.id}}">{{board.title}}</router-link>
+      <button @click="removeBoard(board.id)">X</button>
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: "boards",
-  mounted() {
-    this.$store.dispatch("getBoards");
-  },
-  data() {
-    return {
-      newBoard: {
-        title: "",
-        description: ""
+  import board from '@/pages/Board.vue'
+  export default {
+    name: "boards",
+    props: ["board"],
+    mounted() {
+      this.$store.dispatch("getBoards");
+    },
+    data() {
+      return {
+        newBoard: {
+          title: "",
+          description: ""
+        }
+      };
+    },
+    computed: {
+      boards() {
+        return this.$store.state.boards;
       }
-    };
-  },
-  computed: {
-    boards() {
-      return this.$store.state.boards;
+    },
+    methods: {
+      addBoard() {
+        this.$store.dispatch("addBoard", this.newBoard);
+        this.newBoard = { title: "", description: "" };
+      },
+      removeBoard() {
+        this.$store.dispatch("removeBoard", this.board.id);
+      }
     }
-  },
-  methods: {
-    addBoard() {
-      this.$store.dispatch("addBoard", this.newBoard);
-      this.newBoard = { title: "", description: "" };
-    }
-  }
-};
+  };
 </script>
