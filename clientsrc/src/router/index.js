@@ -32,7 +32,7 @@ export default new Router({
       beforeEnter: authGuard
     },
     // {
-    //   path: '/boards/:boardId/lists',
+    //   path: '/list/:listId/items',
     //   name: 'lists',
     //   component: Lists,
     //   beforeEnter: authGuard

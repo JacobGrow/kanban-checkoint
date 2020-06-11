@@ -5,6 +5,8 @@ import api from "./AxiosService"
 import router from '../router/index'
 import { BoardsStore } from './BoardsStore'
 import { ListsStore } from './ListsStore'
+import { ItemsStore } from './ItemsStore'
+
 
 Vue.use(Vuex)
 
@@ -22,7 +24,8 @@ export default new Vuex.Store({
     user: {},
     boards: [],
     activeBoard: {},
-    lists: []
+    lists: [],
+    items: []
   },
   mutations: {
     setUser(state, user) {
@@ -37,6 +40,10 @@ export default new Vuex.Store({
     setLists(state, list) {
       state.lists = list
     },
+    setItems(state, item) {
+      state.items = item
+    },
+
   },
 
   actions: {
@@ -59,6 +66,7 @@ export default new Vuex.Store({
   },
   modules: {
     BoardsStore,
-    ListsStore
+    ListsStore,
+    ItemsStore
   }
 })

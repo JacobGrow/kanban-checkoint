@@ -26,6 +26,15 @@ export const BoardsStore = {
             } catch (error) {
                 console.error(error)
             }
+        },
+
+        async removeBoard({ commit, dispatch }, _id) {
+            try {
+                let res = await api.delete("boards/" + _id);
+                dispatch("getAllBoards");
+            } catch (error) {
+                console.error(error)
+            }
         }
     }
 }

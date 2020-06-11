@@ -15,7 +15,7 @@ export const ListsStore = {
         async addList({ commit, dispatch }, newList) {
             try {
                 let res = await api.post('lists/' + newList.boardId, newList)
-                dispatch("getLists")
+                dispatch("getLists", newList.boardId)
             } catch (error) {
                 console.error(error)
             }
