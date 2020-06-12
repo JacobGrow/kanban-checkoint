@@ -52,7 +52,8 @@
         this.newList = {
           boardId: this.$route.params.boardId
         }
-      }
+      },
+
     },
     components: {
       List

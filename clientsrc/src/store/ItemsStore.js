@@ -9,7 +9,7 @@ export const ItemsStore = {
         getItems({ commit, dispatch }, listId) {
             api.get("lists/" + listId + "/items")
                 .then(res => {
-                    commit('setItems', {listId, items: res.data})
+                    commit('setItems', { listId, items: res.data })
                 })
         },
         async addItem({ commit, dispatch }, newItem) {
@@ -21,5 +21,13 @@ export const ItemsStore = {
             }
 
         },
+        async removeItem({ commit, dispatch }, item) {
+            try {
+                let res = await api.delete('items/' + item.Id)
+                dispatch("getItems", item.listId)
+            } catch (error) {
+                console.error(error)
+            }
+        }
     }
 }

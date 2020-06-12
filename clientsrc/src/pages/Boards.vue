@@ -39,9 +39,9 @@
         this.$store.dispatch("addBoard", this.newBoard);
         this.newBoard = { title: "", description: "" };
       },
-      removeBoard() {
-        this.$store.dispatch("removeBoard", this.board.id);
+      removeBoard(boardId) {
+        this.$store.dispatch("removeBoard", boardId)
       }
     }
-  };
+  }
 </script>

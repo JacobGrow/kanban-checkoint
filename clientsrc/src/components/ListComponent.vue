@@ -4,6 +4,7 @@
       <h5 class="text-center m-2">
         {{list.title}}
       </h5>
+      <button @click="removeList">X</button>
       <div class="card-body">
         <item v-for="item in items" :key="item.id" :item="item" />
         <div class="text-center">
@@ -41,6 +42,9 @@
           listId: this.list.id
         }
       },
+      removeList() {
+        this.$store.dispatch("removeList", this.list)
+      }
     },
     computed: {
       items() {

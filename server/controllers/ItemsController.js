@@ -13,7 +13,6 @@ export class ItemsController extends BaseController {
         super("api/items")
         this.router
             .use(auth0provider.getAuthorizedUserInfo)
-            .get('', this.getAll)
             .get('/:id', this.getById)
             .get('/:id/comments', this.getCommentsByItemId)
             .post('/:id', this.create)

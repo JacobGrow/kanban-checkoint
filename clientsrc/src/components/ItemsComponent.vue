@@ -4,6 +4,7 @@
             <ul class="mb-0 pb-0">
                 <li class="pointer" @click="showForm=!showForm">{{item.title}}</li>
             </ul>
+            <button @click="removeItem">x</button>
             <comment v-for="comment in comments" :key="comment.id" :comment="comment" />
             <form action="" v-if="showForm" @submit.prevent="addComment">
                 <input type="text" class="mt-0 pt-0 mb-1" placeholder="Enter Comment..."
@@ -42,6 +43,9 @@
         computed: {
             comments() {
                 return this.$store.state.comments[this.item.id]
+            },
+            removeItem() {
+                return this.$store.dispatch("getComments", this.comment.id)
             }
         },
         components: {

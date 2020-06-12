@@ -20,5 +20,13 @@ export const ListsStore = {
                 console.error(error)
             }
         },
+        async removeList({ commit, dispatch }, list) {
+            try {
+                let res = await api.delete('lists/' + list.id)
+                dispatch("getLists", list.boardId)
+            } catch (error) {
+                console.error(error)
+            }
+        }
     }
 }

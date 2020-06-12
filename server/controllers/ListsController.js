@@ -13,7 +13,6 @@ export class ListsController extends BaseController {
     super("api/lists")
     this.router
       .use(auth0provider.getAuthorizedUserInfo)
-      .get('', this.getAll)
       .get('/:id', this.getById)
       .get('/:id/items', this.getItemsByListId)
       .post('/:id', this.create)
