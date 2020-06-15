@@ -23,7 +23,7 @@ export const ItemsStore = {
         },
         async removeItem({ commit, dispatch }, item) {
             try {
-                let res = await api.delete('items/' + item.Id)
+                let res = await api.delete('items/' + item.id)
                 dispatch("getItems", item.listId)
             } catch (error) {
                 console.error(error)

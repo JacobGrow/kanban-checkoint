@@ -19,7 +19,15 @@ export const CommentsStore = {
             } catch (error) {
                 console.error(error)
             }
-
         },
+
+        async removeComment({ commit, dispatch }, comment) {
+            try {
+                let res = await api.delete('comments/' + comment.id)  
+                dispatch("getComments", comment.itemId)
+            } catch (error) {
+                console.error(error)
+            }
+        }
     }
 }

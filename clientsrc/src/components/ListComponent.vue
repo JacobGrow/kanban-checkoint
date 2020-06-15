@@ -3,8 +3,8 @@
     <div class="card text-left mt-4">
       <h5 class="text-center m-2">
         {{list.title}}
+      <i class="fa fa-times text-danger pointer" @click="removeList"></i>
       </h5>
-      <button @click="removeList">X</button>
       <div class="card-body">
         <item v-for="item in items" :key="item.id" :item="item" />
         <div class="text-center">
@@ -44,7 +44,7 @@
       },
       removeList() {
         this.$store.dispatch("removeList", this.list)
-      }
+      },
     },
     computed: {
       items() {
@@ -57,3 +57,8 @@
   }
 
 </script>
+<style scoped>
+    .pointer {
+        cursor: pointer;
+    }
+</style>
