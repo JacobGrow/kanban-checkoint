@@ -10,10 +10,10 @@
             <div class="ml-3">
             <comment v-for="comment in comments" :key="comment.id" :comment="comment" />
             </div>
-            <form action="" v-if="showForm" @submit.prevent="addComment">
-                <input type="text" class="mt-0 pt-0 mb-1" placeholder="Enter Comment..."
-                    v-model="newComment.description">
-                <button type="submit">Submit
+            <form action="" class="form-inline" v-if="showForm" @submit.prevent="addComment">
+                <input type="text" class="form-control" placeholder="Enter Comment..."
+                    v-model="newComment.description" style="width: 70%">
+                <button type="submit" class="btn btn-outline-success ml-1"><b> + </b>
                 </button>
             </form>
         </div>
