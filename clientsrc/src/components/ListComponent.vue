@@ -1,6 +1,6 @@
 <template>
   <div class="col-4">
-    <div class="card text-left mt-4">
+    <div class="card shadow text-left mt-4">
       <h5 class="text-center m-2">
         {{list.title}}
       <i class="fa fa-times text-danger pointer" @click="removeList"></i>

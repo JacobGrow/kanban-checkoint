@@ -31,7 +31,7 @@ export const BoardsStore = {
         async removeBoard({ commit, dispatch }, id) {
             try {
                 let res = await api.delete("boards/" + id);
-                dispatch("getAllBoards");
+                dispatch("getBoards");
             } catch (error) {
                 console.error(error)
             }

@@ -17,9 +17,13 @@
       <div class="col-3">
 
     <div class="py-1" v-for="board in boards" :key="board.id" :board="board">
-    <div class="card kard">
-      <router-link :to="{name: 'board', params: {boardId: board.id}}">{{board.title}}</router-link>
-      <i class="fa fa-times text-danger pointer ml-1" @click="removeBoard(board.id)"></i>
+    <div class="card shadow my-2 py-2">
+      <router-link :to="{name: 'board', params: {boardId: board.id}}">
+       <h5>
+         {{board.title}}
+         </h5> 
+        </router-link>
+      <i class="fa fa-trash float-right text-danger pointer ml-1" @click="removeBoard(board.id)"></i>
     </div>
     </div>
       </div>
@@ -64,8 +68,4 @@
         cursor: pointer;
     }
 
-.kard {
-  font-size: 25px;
-  margin-top: 0.5em;
-}
 </style>
