@@ -6,11 +6,14 @@ export const ListsStore = {
 
     actions: {
 
-        getLists({ commit, dispatch }, id) {
-            api.get("boards/" + id + "/lists")
-                .then(res => {
-                    commit('setLists', res.data)
-                })
+        async getLists({ commit, dispatch }, id) {
+            try {
+                let res = await api.get("boards/" + id + "/lists")
+                commit('setLists', res.data)
+            } catch (error) {
+              console.error(error)
+            }
+            
         },
         async addList({ commit, dispatch }, newList) {
             try {
@@ -23,7 +26,7 @@ export const ListsStore = {
         async removeList({ commit, dispatch }, list) {
             try {
                 let res = await api.delete('lists/' + list.id)
-                dispatch("getLists", list.boardId)
+                dispatch("getLists", list.boardId.id)
             } catch (error) {
                 console.error(error)
             }
